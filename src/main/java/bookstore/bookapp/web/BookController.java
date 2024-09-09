@@ -31,6 +31,15 @@ public String addBook(Model model) {
     return "addbook";
 }
 
+@GetMapping(value = "/edit/{id}")
+public String editBook(@PathVariable("id") long id, Model model) {
+
+    Book book = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book id not found" + id));
+
+    model.addAttribute("book", book);
+    return "editbook";
+}
+
 
 
 @PostMapping(value = "/save")
@@ -40,7 +49,7 @@ public String addBook(Model model) {
     }   
 
       @GetMapping(value = "/delete/{id}")
-    public String deleteStudent(@PathVariable("id") long id, Model model) {
+    public String deleteBook(@PathVariable("id") long id, Model model) {
     	repository.deleteById(id);
         return "redirect:../booklist";
     }  
