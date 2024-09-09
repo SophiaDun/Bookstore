@@ -40,8 +40,6 @@ public String editBook(@PathVariable("id") long id, Model model) {
     return "editbook";
 }
 
-
-
 @PostMapping(value = "/save")
     public String save(Book book){
         repository.save(book);
