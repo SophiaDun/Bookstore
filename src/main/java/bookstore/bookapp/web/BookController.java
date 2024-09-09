@@ -28,8 +28,9 @@ return "booklist"; }
 @RequestMapping(value = "/add")
 public String addBook(Model model) {
     model.addAttribute("book", new Book());
-    return "addbook";  
-}  
+    return "addbook";
+}
+
 
 
 @PostMapping(value = "/save")
