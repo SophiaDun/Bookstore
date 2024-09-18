@@ -1,5 +1,7 @@
 package bookstore.bookapp.web;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +13,15 @@ import org.springframework.ui.Model;
 
 import bookstore.bookapp.domain.Book;
 import bookstore.bookapp.domain.BookRepository;
+import bookstore.bookapp.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 @Autowired
 private BookRepository repository;
+
+@Autowired
+private CategoryRepository category;
 
 @RequestMapping(value= {"/","/booklist"}) 
 public String bookList(Model model) {
@@ -28,6 +34,7 @@ return "booklist"; }
 @RequestMapping(value = "/add")
 public String addBook(Model model) {
     model.addAttribute("book", new Book());
+    model.addAttribute("categories", category.findAll());
     return "addbook";
 }
 
@@ -35,7 +42,7 @@ public String addBook(Model model) {
 public String editBook(@PathVariable("id") long id, Model model) {
 
     Book book = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book id not found" + id));
-
+    model.addAttribute("categories", category.findAll());
     model.addAttribute("book", book);
     return "editbook";
 }

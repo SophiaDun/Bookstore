@@ -1,8 +1,5 @@
 package bookstore.bookapp.domain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
@@ -12,10 +9,14 @@ public class Book {
     private String author,title,isbn;
     private double price;
     private int vuosi;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
     
     public Book() {}
 
-    public Book( String author, String title,String isbn,double price,int vuosi) {
+    public Book( String author, String title,String isbn,double price,int vuosi, Category category) {
 		super();
 
         this.author=author;
@@ -23,6 +24,7 @@ public class Book {
         this.isbn=isbn;
         this.price=price;
         this.vuosi=vuosi;
+        this.category=category;
 }
 
     public long getId() {
@@ -61,10 +63,23 @@ public class Book {
     public void setPrice(double price) {
         this.price = price;
     }
+	public Category getCategory() {
+		return category;
+	}
 
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
     @Override
 public String toString() {
+
+    if (this.category != null)
+    return "Book [id=" + id + ", author=" + author + ", title=" + title + 
+    ", isbn=" + isbn + ", price=" + price + ", year=" + vuosi +", category= " +this.getCategory()+ "]";
+  
+    else
+
     return "Book [id=" + id + ", author=" + author + ", title=" + title + 
            ", isbn=" + isbn + ", price=" + price + ", year=" + vuosi + "]";
 }

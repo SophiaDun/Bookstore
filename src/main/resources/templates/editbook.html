@@ -37,6 +37,13 @@
                 <input type="number" id="vuosi" th:field="*{vuosi}" class="form-control" />
             </div>
 
+            <div class="form-group">
+                <label for="category">category:</label>
+                <select id="categorylist" th:field="*{category}" class="form-control">
+                    <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+             </select>
+            </div>	
+
     <button type="submit" class="btn btn-primary">Save</button>
 
             
