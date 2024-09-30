@@ -6,6 +6,7 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,14 +27,19 @@ private BookRepository repository;
 @Autowired
 private CategoryRepository category;
 
-@RequestMapping(value= {"/","/booklist"}) 
+@RequestMapping(value="/login")
+public String login() {	
+    return "login";
+}	
+
+@RequestMapping(value= {"/booklist"}) 
 public String bookList(Model model) {
 model.addAttribute("books", repository.findAll());
-
-
 return "booklist"; }
 
-  
+
+
+ 
 @RequestMapping(value = "/add")
 public String addBook(Model model) {
     model.addAttribute("book", new Book());
@@ -69,6 +75,7 @@ public String editBook(@PathVariable("id") long id, Model model) {
     }   
 
       @GetMapping(value = "/delete/{id}")
+      @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable("id") long id, Model model) {
     	repository.deleteById(id);
         return "redirect:../booklist";

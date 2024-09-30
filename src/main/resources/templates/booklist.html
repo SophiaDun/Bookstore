@@ -7,7 +7,9 @@
 </head>
 <body>
     <div class="container" style="padding-top: 5vh;">
+        <h1>Welcome, <span th:text="${#authentication.name}">User</span>!</h1>
         <h1 style="text-align: center; padding: 3vh;">Books</h1>
+      
         <table class="table">
             <thead>
                 <tr>
@@ -27,7 +29,8 @@
                     <td th:text="${book.category.name}"></td>
                     <td>
                         <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-dark">Edit</a>
-                        <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+
+                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a>
    
                     </td>
                 </tr>
@@ -36,6 +39,9 @@
         <div style="display: flex; justify-content: center;">
             <a href="/add" class="btn btn-primary">Add Book</a>
         </div>
+        <form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
     </div>
 
        <!-- Bootstrap JS and dependencies -->
