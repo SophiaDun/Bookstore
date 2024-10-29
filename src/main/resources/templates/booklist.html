@@ -41,13 +41,15 @@
             </tbody>
         </table>
 
-        <div style="display: flex; justify-content: center;">
+        <div>
             <a href="/add" class="btn btn-primary">Add Book</a>
         </div>
-
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
-        </form>
+<div style="display: flex; justify-content: center; padding:50px">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+    </form>
+</div>
+    
     </div>
 
     <!-- Bootstrap JS and dependencies -->
